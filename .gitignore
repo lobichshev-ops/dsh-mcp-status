@@ -1,0 +1,11 @@
+# Local state written by the plugin for diagnostics
+.activation.log
+
+# Node / Python noise
+node_modules/
+__pycache__/
+*.pyc
+
+# OS junk
+.DS_Store
+Thumbs.db

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "MCP status",
+    "description": "Shows which MCP servers are connected to DSH and which answer right now."
+  }
+}

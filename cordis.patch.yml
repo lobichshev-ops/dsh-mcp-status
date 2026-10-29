@@ -1,0 +1,7 @@
+# Bundle layer: one loader row for the plugin.
+# Python and the probe script are resolved by the plugin itself (bundled
+# scripts/mcp_status.py + the DSH runtime Python). Override them here only when
+# your machine differs — see "Configuration" in README.md.
+- insert:
+    - id: mcp-status
+      name: '@local/dsh-mcp-status'
