@@ -92,6 +92,20 @@ DSH подключает MCP-серверы один раз, при старте
         intervalMs: 60000
 ```
 
+### Скрипт проверки
+
+scripts/mcp_status.py работает и сам по себе, без интерфейса:
+
+`ash
+python scripts/mcp_status.py                 # таблица для человека
+python scripts/mcp_status.py --json          # машинный вывод
+python scripts/mcp_status.py --json --out result.json   # записать в файл
+python scripts/mcp_status.py --no-edt        # без блока 1C:EDT
+python scripts/mcp_status.py --edt-roots 'D:\projects'  # каталоги EDT, если роутер их не передал
+`
+
+Код возврата: 1 — есть мёртвые серверы,   — все живы. Удобно для cron.
+
 ## Установка
 
 1. Положить каталог в постоянное место и связать с профилем:

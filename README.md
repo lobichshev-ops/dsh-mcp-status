@@ -140,6 +140,20 @@ Override in your profile's `cordis.patch.yml`:
 
 The probe itself reads the **profile configuration** (`~/.dsh/profiles/<profile>/cordis.patch.yml`) to find `@deepseek-ai/dsh-mcp-client` rows, and each `E:\...`-style project directory's `.mcp.json` for EDT instance ports. It never edits anything.
 
+### The probe script
+
+scripts/mcp_status.py runs standalone, so you can use it without the UI at all:
+
+`ash
+python scripts/mcp_status.py                 # human-readable table
+python scripts/mcp_status.py --json          # machine-readable
+python scripts/mcp_status.py --json --out result.json   # write to a file
+python scripts/mcp_status.py --no-edt        # skip the 1C:EDT block
+python scripts/mcp_status.py --edt-roots 'D:\projects'  # EDT roots when the router row does not carry them
+`
+
+It exits with 1 when at least one server is dead,   otherwise — handy for cron.
+
 ## Installation
 
 The plugin is a bundle: it ships a `dsh.bundle.patch` that inserts its own loader row.

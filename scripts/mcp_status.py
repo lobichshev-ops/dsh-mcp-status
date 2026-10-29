@@ -557,7 +557,7 @@ def edt_projects(roots, port_range=None):
 
     Нам нужен только тот, что указывает на сам инстанс EDT: сначала ищем по
     имени ключа (1c-edt), иначе — по попаданию порта в диапазон роутера.
-    Иначе первый же http-сервер (8002) будет выдан за «инстанс EDT».
+    Иначе первый же http-сервер будет выдан за «инстанс EDT».
     """
     low, high = None, None
     match = re.match(r"(\d+)\s*-\s*(\d+)$", (port_range or "").strip())
@@ -703,6 +703,11 @@ def main() -> int:
     )
     parser.add_argument("--no-edt", action="store_true", help="не проверять инстансы EDT")
     parser.add_argument("--no-scan", action="store_true", help="не сканировать диапазон портов EDT")
+    parser.add_argument(
+        "--edt-roots",
+        default=None,
+        help="каталоги проектов EDT через запятую; по умолчанию берутся из аргументов роутера",
+    )
     args = parser.parse_args()
 
     profile_dir = args.profile or default_profile_dir()
@@ -736,10 +741,8 @@ def main() -> int:
                 ports_value = _arg_value(item["args"], "--ports")
                 if ports_value:
                     port_range = ports_value
-        if not roots:
-            default_root = r"E:\EDT new"
-            if os.path.isdir(default_root):
-                roots.append(default_root)
+        if not roots and args.edt_roots:
+            roots.extend(part for part in args.edt_roots.split(",") if part)
 
         edt_rows = edt_projects(roots, port_range)
         known_ports = set()
